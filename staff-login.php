@@ -14,15 +14,12 @@
 
 			<h1 class="main-title">Staff Login</h1>
 			<div class="login-container">
-				<form action="" method="POST" id="login-form">
+				<form action="login.php?type=staff" method="POST" id="login-form">
 					<input type="text" name="email" id="email" placeholder="test@example.com" />
 					<input type="password" name="password" id="password" placeholder="********" />
 
-					<button type="submit" name="submit" id="login-btn">Log in</button>
-
-
+					<button type="submit" name="submitBtn" id="login-btn">Log in</button>
 				</form>
-
 				<div class="popup-overlay" id="popup-overlay">
 					<div class="popup">
 						<ul id="validation-errors"></ul>
@@ -64,7 +61,7 @@
 							popupOverlay.style.display = "flex";
 						} else {
 							// Submit the form if there are no errors
-							loginForm.submit();
+							document.getElementById("login-form").submit();
 						}
 					});
 

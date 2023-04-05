@@ -14,11 +14,11 @@
 
 			<h1 class="main-title">Student Login</h1>
 			<div class="login-container">
-				<form action="" method="POST" id="login-form">
+				<form action="./login.php?type=student" method="POST" id="login-form">
 					<input type="text" name="email" id="email" placeholder="test@example.com" />
 					<input type="password" name="password" id="password" placeholder="********" />
 
-					<button type="submit" name="submit" id="login-btn">Log in</button>
+					<button type="submit" name="submitBtn" id="login-btn">Log in</button>
 
 
 				</form>
@@ -64,7 +64,7 @@
 							popupOverlay.style.display = "flex";
 						} else {
 							// Submit the form if there are no errors
-							loginForm.submit();
+							document.getElementById("login-form").submit();
 						}
 					});
 
