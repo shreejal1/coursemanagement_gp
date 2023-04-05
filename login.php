@@ -13,8 +13,9 @@ if($usertype === "admin"){
     if ($rows > 0) {
         $credentials = $comp->fetchAll();
         foreach ($credentials as $info) {
-            if ($password === $info['password']) {
-                $_SESSION['user'] = $info['admin_id'];
+            if (password_verify($password, $info['password'])) {
+                $_SESSION['user'] = "admin";
+                $_SESSION['id'] = $info['id'];
                 header("Location: student-reg.php");
                 exit();
             } else {
@@ -38,8 +39,9 @@ else if($usertype === "staff"){
     if ($rows > 0) {
         $credentials = $comp->fetchAll();
         foreach ($credentials as $info) {
-            if ($password === $info['password']) {
-                $_SESSION['user'] = $info['staff'];
+            if (password_verify($password, $info['password'])) {
+                $_SESSION['user'] = "staff";
+                $_SESSION['id'] = $info['id'];
                 header("Location: student-reg.php");
                 exit();
             } else {
@@ -63,8 +65,9 @@ else if($usertype === "student"){
     if ($rows > 0) {
         $credentials = $comp->fetchAll();
         foreach ($credentials as $info) {
-            if ($password === $info['password']) {
-                $_SESSION['user'] = $info['student_id'];
+            if (password_verify($password, $info['password'])) {
+                $_SESSION['user'] = "student";
+                $_SESSION['id'] = $info['student_id'];
                 header("Location: studentdash.php");
                 exit();
             } else {
