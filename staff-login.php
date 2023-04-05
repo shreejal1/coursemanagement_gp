@@ -23,6 +23,13 @@
 				<div class="popup-overlay" id="popup-overlay">
 					<div class="popup">
 						<ul id="validation-errors"></ul>
+						<?php
+						if(isset($_GET['error'])){
+							$error = $_GET['error'];
+						echo '<li style="color: red;">Invalid credentials provided.</li>';
+						}
+						?>
+						</ul>
 					</div>
 				</div>
 
@@ -56,6 +63,7 @@
 							for (let i = 0; i < errors.length; i++) {
 								let errorItem = document.createElement("li");
 								errorItem.textContent = errors[i];
+								errorItem.style.color = "red";
 								validationErrors.appendChild(errorItem);
 							}
 							popupOverlay.style.display = "flex";

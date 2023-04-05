@@ -1,5 +1,6 @@
 <?php
 require 'database.php';
+if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,3 +101,8 @@ require 'database.php';
         
     </body>
 </html>
+<?php
+}else{
+	header("Location: admin-login.php");
+}
+?>

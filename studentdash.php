@@ -1,3 +1,8 @@
+<?php
+require('database.php');
+if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +38,7 @@
                     <script src="./upload.js"></script>
                 </div>
                 <div class="logout-btn">
-                    <a href="#">Log out</a>
+                    <a href="index.php">Log out</a>
                 </div>
 
             </div>
@@ -64,3 +69,8 @@
     </body>
 
 </html>
+<?php
+}else{
+	header("Location: student-login.php");
+}
+?>

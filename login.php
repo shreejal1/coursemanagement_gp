@@ -1,6 +1,6 @@
 <?php
 require 'database.php';
-
+if(isset($_GET['type']) && isset($_POST['email']) && isset($_POST['password'])){
 $email = $_POST['email'];
 $password = $_POST['password'];
 $usertype = $_GET['type'];
@@ -14,17 +14,18 @@ if($usertype === "admin"){
         $credentials = $comp->fetchAll();
         foreach ($credentials as $info) {
             if ($password === $info['password']) {
+                $_SESSION['user'] = $info['admin_id'];
                 header("Location: student-reg.php");
                 exit();
             } else {
-                header("Location: admin-login.php");
+                header("Location: admin-login.php?error=1");
                 exit();
             }
         }
     }
     
     else{
-        header("Location: admin-login.php");
+        header("Location: admin-login.php?error=1");
         exit(); 
     }
 }
@@ -38,16 +39,17 @@ else if($usertype === "staff"){
         $credentials = $comp->fetchAll();
         foreach ($credentials as $info) {
             if ($password === $info['password']) {
+                $_SESSION['user'] = $info['staff'];
                 header("Location: student-reg.php");
                 exit();
             } else {
-                header("Location: staff-login.php");
+                header("Location: staff-login.php?error=1");
                 exit();
             }
         }
     }
     else{
-        header("Location: staff-login.php");
+        header("Location: staff-login.php?error=1");
         exit();
     }
 
@@ -62,20 +64,24 @@ else if($usertype === "student"){
         $credentials = $comp->fetchAll();
         foreach ($credentials as $info) {
             if ($password === $info['password']) {
-                header("Location: student-reg.php");
+                $_SESSION['user'] = $info['student_id'];
+                header("Location: studentdash.php");
                 exit();
             } else {
-                header("Location: student-login.php");
+                header("Location: student-login.php?error=1");
                 exit();
             }
         }
     }
     
     else{
-        header("Location: student-login.php");
+        header("Location: student-login.php?error=1");
         exit();
     }
 
 }
-
+}
+else{
+    header('Location: index.php');
+}
 ?>
