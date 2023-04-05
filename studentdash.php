@@ -38,7 +38,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                     <script src="./upload.js"></script>
                 </div>
                 <div class="logout-btn">
-                    <a href="index.php">Log out</a>
+                    <a href="logout.php">Log out</a>
                 </div>
 
             </div>
