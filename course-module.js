@@ -23,7 +23,7 @@ courseSelect.addEventListener('change', (event) => {
       modules.forEach(module => {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.name = 'modules';
+        checkbox.name = 'modules[]';
         checkbox.value = module.id;
 
         const label = document.createElement('label');

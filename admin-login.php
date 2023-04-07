@@ -10,6 +10,7 @@
 	</head>
 
 	<body>
+	
 		<div class="centered">
 
 			<h1 class="main-title">Admin Login</h1>
@@ -80,6 +81,8 @@
 						return emailRegex.test(email);
 					}
 				</script>
+				
+
 			</div>
 		</div>
 

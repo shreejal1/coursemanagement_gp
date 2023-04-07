@@ -2,22 +2,28 @@
 require 'database.php';
 if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
     if(isset($_POST['submit'])){
-        $s_id = $_POST['stID'];
-        $fname = $_POST['fname'];
+        // $mods = $_POST['modules'];
+        // foreach($mods as $mod){
+        //     echo $mod;
+        //     echo '<br>';
+        // }
+
+        $s_id = strtoupper($_POST['stID']);
+        $fname = strtoupper($_POST['fname']);
         if(isset($_POST['mname'])){
-            $mname = $_POST['mname'];
+            $mname = strtoupper($_POST['mname']);
         }
         else{
             $mname = '';
         }
-        $lname = $_POST['lname'];
-        $gender = $_POST['gender'];
-        $course = $_POST['course'];
-        $email = $_POST['email'];
+        $lname = strtoupper($_POST['lname']);
+        $gender = strtoupper($_POST['gender']);
+        $course = strtoupper($_POST['course']);
+        $email = strtoupper($_POST['email']);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $contact = $_POST['phone'];
         $dob = $_POST['dob'];
-        $addr = $_POST['address'];
+        $addr = strtoupper($_POST['address']);
         $hd = $_POST['en-date'];
 
         $ins = $pdo->prepare('INSERT INTO `staff`(`staff_id`, `first_name`, `middle_name`, `last_name`, `gender`, `course_id`, `email`, `password`, `contact`, `date_of_birth`, `address`, `enroll_date`, `status`) VALUES (:sid,:fname,:mname,:lname,:gender,:course,:email,:password,:phone,:dob,:addr,:hd,:status)');
@@ -43,7 +49,8 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
         }
         else{
             echo "Upload Successful";
-            header('Location: staff-reg.php');
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit();
         }
     }
     else{
@@ -90,11 +97,11 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                     <input type="radio" name="gender" value="female">Female</input>
                     </div><br>
                     <div>
-                    <label for="course">Select a course:</label>
+                    <label for="course">Select a course:(once set cannot be modified)</label>
                     <select id="course" name="course" required>
                     <option value="">--Select a course--</option>
                     <?php
-                    $sql = "SELECT id, name FROM course";
+                    $sql = "SELECT id, name FROM course WHERE status = 'ACTIVE'";
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute();
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -140,6 +147,9 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                     
                     
                     <button type="submit" name="submit" id="student-add" style="margin: auto; display: block;">Add Staff</button>
+                    <div class="logout-btn">
+                    <a href="admindash.php">🔙 Back to Admin Dashboard</a>
+                    </div>
                 </form>
             </div>
         </div>

@@ -13,7 +13,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <title>Student Dashboard</title>
+        <title>Student Dashboard-Course</title>
     </head>
 
     <body>
@@ -29,17 +29,8 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
         </div>
         <div class="main-content">
             <div class="stu_nav">
-            <div style=" display: inline-block;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 2px solid #000;
-  font-family: Helvetica;
-  text-align: center;
-  text-decoration: none;
-  color: #000;
-  line-height: 0.5;
-  font-weight: bold;">
-                    Student
+            <div style=" display: inline-block;">
+                    <h1 style="font-family: helvetica; line-height: 0;">Course</h1>
                 </div>
                 <div class="logout-btn">
                     <a href="logout.php">Log out</a>
@@ -47,13 +38,21 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
 
             </div>
             <div class="dash-centre">
-                <div class="btns" style="flex-direction: column; justify-content: left; align-items: start;">
+                <?php
+                    $mods = $pdo->query("SELECT course_id FROM student WHERE student_id = '".$_SESSION['id']."'");
+                    $datamod = $mods->fetch();
+                    $modules = $pdo->query("SELECT * FROM module WHERE course_id = '".$datamod['course_id']."'");
+                    foreach($modules as $modsvals){
+                
+                echo '<div id="courseitems">
+                        <h2 style="line-height: 0; font-family: helvetica; margin-left: 2%;">'.$modsvals['id'].'</h2>
+                        <h2 style="line-height: 0; font-family: helvetica; margin-left: 2%;">'.$modsvals['name'].'</h2>
+                        <h4 style="line-height: 0; font-family: helvetica; margin-left: 2%;">Credits: '.$modsvals['credit'].'</h4>
 
-                    <br><a href="profile.php" style="background-color: #e73838;">Profile</a>
-                    <br><a href="course.php" style="background-color: #5257f6;">Course</a>
-                    <br><a href="mmaterial.php" style="background-color: #acac04;">Module Material</a>
-                </div>
+                </div><br><br>';
+                    }
 
+                ?>
             </div>
         </div>
 

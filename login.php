@@ -16,7 +16,7 @@ if($usertype === "admin"){
             if (password_verify($password, $info['password'])) {
                 $_SESSION['user'] = "admin";
                 $_SESSION['id'] = $info['id'];
-                header("Location: student-reg.php");
+                header("Location: admindash.php");
                 exit();
             } else {
                 header("Location: admin-login.php?error=1");

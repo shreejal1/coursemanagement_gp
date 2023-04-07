@@ -12,7 +12,7 @@
   <body>
     <div class="centered">
       <div class="image-container">
-        <img id="namilogo" src="images/namilogo.jpg" />
+        <img id="namilogo" src="images/logo.png" />
         <h1 class="main-title">MAIN</h1>
       </div>
 

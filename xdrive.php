@@ -13,7 +13,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <title>Student Dashboard</title>
+        <title>Student-XDRIVE</title>
     </head>
 
     <body>
@@ -29,17 +29,15 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
         </div>
         <div class="main-content">
             <div class="stu_nav">
-            <div style=" display: inline-block;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 2px solid #000;
-  font-family: Helvetica;
-  text-align: center;
-  text-decoration: none;
-  color: #000;
-  line-height: 0.5;
-  font-weight: bold;">
-                    Student
+                <div id="drive-logo">
+                    <img class="drive-image" src="./images/drive.png" alt="Drive Logo">
+                    <h3>Drive</h3>
+                    <div class="addfiles">
+                        <button id="choose-file-button">Add</button>
+                        <input type="file" id="file-input" style="display:none;"/>
+                        <button type="submit" id="upload-button" style="display:none;">Upload</button>
+                    </div>
+                    <script src="./upload.js"></script>
                 </div>
                 <div class="logout-btn">
                     <a href="logout.php">Log out</a>
@@ -47,13 +45,8 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
 
             </div>
             <div class="dash-centre">
-                <div class="btns" style="flex-direction: column; justify-content: left; align-items: start;">
-
-                    <br><a href="profile.php" style="background-color: #e73838;">Profile</a>
-                    <br><a href="course.php" style="background-color: #5257f6;">Course</a>
-                    <br><a href="mmaterial.php" style="background-color: #acac04;">Module Material</a>
-                </div>
-
+                <div class="item">Item 1</div>
+                
             </div>
         </div>
 
