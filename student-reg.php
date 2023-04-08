@@ -42,6 +42,11 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
             echo "Failed, try again";
         }
         else{
+            $folder_name = "./xdrivefiles/$s_id";
+            if (!is_dir($folder_name)) {
+                mkdir($folder_name);
+            }
+
             echo "Upload Successful";
             header("Location: " . $_SERVER['HTTP_REFERER']);
             exit();

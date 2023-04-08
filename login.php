@@ -41,8 +41,8 @@ else if($usertype === "staff"){
         foreach ($credentials as $info) {
             if (password_verify($password, $info['password'])) {
                 $_SESSION['user'] = "staff";
-                $_SESSION['id'] = $info['id'];
-                header("Location: student-reg.php");
+                $_SESSION['id'] = $info['staff_id'];
+                header("Location: staffdash.php");
                 exit();
             } else {
                 header("Location: staff-login.php?error=1");

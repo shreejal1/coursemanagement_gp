@@ -13,7 +13,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <title>Student Dashboard-Course</title>
+        <title>Student Dashboard</title>
     </head>
 
     <body>
@@ -30,30 +30,33 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
         <div class="main-content">
             <div class="stu_nav">
             <div style=" display: inline-block;">
-                    <h1 style="font-family: helvetica; line-height: 0;">Course</h1>
+                   <h1 style="line-height: 0; font-family: helvetica;">Module Materials</h1>
                 </div>
-                <div class="logout-btn">
-                    <a href="studentdash.php">🔙 Back to Student Dashboard</a>
-                    <a href="logout.php">Log out</a>
-                </div>
+                
 
             </div>
             <div class="dash-centre">
+               
+
                 <?php
-                    $mods = $pdo->query("SELECT course_id FROM student WHERE student_id = '".$_SESSION['id']."'");
-                    $datamod = $mods->fetch();
-                    $modules = $pdo->query("SELECT * FROM module WHERE course_id = '".$datamod['course_id']."'");
-                    foreach($modules as $modsvals){
-                
-                echo '<a href="module-material.php?id='.$modsvals['id'].'" style="text-decoration: none; color: black;"><div id="courseitems">
-                        <h2 style="line-height: 0; font-family: helvetica; margin-left: 2%;">'.$modsvals['id'].'</h2>
-                        <h2 style="line-height: 0; font-family: helvetica; margin-left: 2%;">'.$modsvals['name'].'</h2>
-                        <h4 style="line-height: 0; font-family: helvetica; margin-left: 2%;">Credits: '.$modsvals['credit'].'</h4>
-
-                </div></a><br><br>';
+                $mid = $_GET['id'];
+                $dir = "./files/$mid";
+                if(is_dir($dir)) {
+                    $files = scandir($dir);
+                    foreach($files as $file) {
+                        if($file != '.' && $file != '..') {
+                            echo '<div class="item">';
+                            echo "<a href='$dir/$file' style='text-decoration: none;'>$file</a><br>";
+                            echo '</div>';
+                        }
                     }
-
+                } else {
+                    echo "Error: Directory not found.";
+                }
                 ?>
+
+               
+
             </div>
         </div>
 

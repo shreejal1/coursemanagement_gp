@@ -3,7 +3,41 @@ require('database.php');
 if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
     $stu = $pdo->query("SELECT * FROM student WHERE student_id = '".$_SESSION['id']."'");
     $datastu = $stu->fetch();
+    
 ?>
+
+<?php
+    if(isset($_FILES['file'])) {
+        $file_name = $_FILES['file']['name'];
+        $file_size = $_FILES['file']['size'];
+        $file_tmp = $_FILES['file']['tmp_name'];
+        $file_type = $_FILES['file']['type'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    
+        $extensions = array("pdf", "doc", "docx", "txt");
+    
+        if(in_array($file_ext, $extensions) === false){
+            echo "Error: File extension not allowed, please choose a PDF, DOC, DOCX, or TXT file.";
+        } elseif($file_size > 1000000) {
+            echo "Error: File size must be less than 1MB.";
+        } else {
+            $s_id = $_SESSION['id'];
+            $upload_dir = "./xdrivefiles/$s_id/";
+            if(!is_dir($upload_dir)) {
+                mkdir($upload_dir);
+            }
+            $upload_path = "./xdrivefiles/$s_id/" . $s_id . "_" . basename($file_name);
+            if(move_uploaded_file($file_tmp, $upload_path)) {
+                echo "File uploaded successfully.";
+                header("Location: " . $_SERVER['HTTP_REFERER']);
+                exit();
+            } else {
+                echo "Error: Failed to upload file.";
+            }
+        }
+    }
+    ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,20 +66,41 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                 <div id="drive-logo">
                     <img class="drive-image" src="./images/drive.png" alt="Drive Logo">
                     <h3>Drive</h3>
-                    <div class="addfiles">
-                        <button id="choose-file-button">Add</button>
-                        <input type="file" id="file-input" style="display:none;"/>
-                        <button type="submit" id="upload-button" style="display:none;">Upload</button>
+                    <div style="width: 500px;">
+                    <form action="" method="POST" enctype="multipart/form-data" style="width: 100%; align-items: center; flex-direction: row;">
+                        <input type="file" name="file">
+                        <input type="submit" value="Upload File">
+                    </form>
                     </div>
-                    <script src="./upload.js"></script>
                 </div>
                 <div class="logout-btn">
+                <a href="studentdash.php">🔙 Back to Student Dashboard</a>
                     <a href="logout.php">Log out</a>
                 </div>
 
             </div>
             <div class="dash-centre">
-                <div class="item">Item 1</div>
+                
+
+
+
+                                <?php
+                $s_id = $_SESSION['id'];
+                $dir = "./xdrivefiles/$s_id";
+                if(is_dir($dir)) {
+                    $files = scandir($dir);
+                    foreach($files as $file) {
+                        if($file != '.' && $file != '..') {
+                            echo '<div class="item">';
+                            echo "<a href='$dir/$file' style='text-decoration: none;'>$file</a><br>";
+                            echo '</div>';
+                        }
+                    }
+                } else {
+                    echo "Error: Directory not found.";
+                }
+                ?>
+
                 
             </div>
         </div>

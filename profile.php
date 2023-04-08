@@ -33,6 +33,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                     <h1 style="font-family: helvetica; line-height: 0;">My Profile</h1>
                 </div>
                 <div class="logout-btn">
+                <a href="studentdash.php">🔙 Back to Student Dashboard</a>
                     <a href="logout.php">Log out</a>
                 </div>
 

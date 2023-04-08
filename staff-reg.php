@@ -2,13 +2,11 @@
 require 'database.php';
 if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
     if(isset($_POST['submit'])){
-        // $mods = $_POST['modules'];
-        // foreach($mods as $mod){
-        //     echo $mod;
-        //     echo '<br>';
-        // }
-
         $s_id = strtoupper($_POST['stID']);
+        
+        // var_dump($_POST['modules']);
+
+        
         $fname = strtoupper($_POST['fname']);
         if(isset($_POST['mname'])){
             $mname = strtoupper($_POST['mname']);
@@ -49,6 +47,16 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
         }
         else{
             echo "Upload Successful";
+           
+            if(isset($_POST['modules'])){
+                $mods = $_POST['modules'];
+                foreach($mods as $mod){
+                   $insmods = $pdo->prepare("INSERT INTO `staff_module`(`staff_id`, `module_id`) VALUES (:s_id, :m_id)");
+                   $cons = ['s_id' => $s_id, 'm_id' => $mod];
+                   $insmods->execute($cons);
+
+                }
+            }
             header("Location: " . $_SERVER['HTTP_REFERER']);
             exit();
         }

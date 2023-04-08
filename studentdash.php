@@ -48,10 +48,9 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
             </div>
             <div class="dash-centre">
                 <div class="btns" style="flex-direction: column; justify-content: left; align-items: start;">
-
+                <br><a href="xdrive.php" style="background-color: #79e979;">X-Drive</a>
                     <br><a href="profile.php" style="background-color: #e73838;">Profile</a>
-                    <br><a href="course.php" style="background-color: #5257f6;">Course</a>
-                    <br><a href="mmaterial.php" style="background-color: #acac04;">Module Material</a>
+                    <br><a href="course.php" style="background-color: #5257f6;">Course & Module Material</a>
                 </div>
 
             </div>

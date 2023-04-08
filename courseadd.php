@@ -5,37 +5,61 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
 <?php
 if(isset($_POST['submit'])){
 
-    $coursename = $_POST['cname'];
-    $coursecode = $_POST['ccode'];
+    $coursename = strtoupper($_POST['cname']);
+    $coursecode = strtoupper($_POST['ccode']);
 
 
 
-    $modules1 = $_POST['mod1'];
-    $code1 = $_POST['code1'];
+    $modules1 = strtoupper($_POST['mod1']);
+    $code1 = strtoupper($_POST['code1']);
 
-    $modules2 = $_POST['mod2'];
-    $code2 = $_POST['code2'];
+    $modules2 = strtoupper($_POST['mod2']);
+    $code2 = strtoupper($_POST['code2']);
 
-    $modules3 = $_POST['mod3'];
-    $code3 = $_POST['code3'];
+    $modules3 = strtoupper($_POST['mod3']);
+    $code3 = strtoupper($_POST['code3']);
 
     $inscourse = $pdo->query("INSERT INTO course VALUES('$coursecode', '$coursename', 'ACTIVE')");
     if($inscourse){
             $insmods1 = $pdo->query("INSERT INTO module VALUES('$code1', '$modules1', '$coursecode','ACTIVE', '20')");
+            $folder_name = "./files/$code1";
+            if (!is_dir($folder_name)) {
+                mkdir($folder_name);
+            }
             $insmods2 = $pdo->query("INSERT INTO module VALUES('$code2', '$modules2', '$coursecode', 'ACTIVE', '20')");
+            $folder_name = "./files/$code2";
+            if (!is_dir($folder_name)) {
+                mkdir($folder_name);
+            }
             $insmods3 = $pdo->query("INSERT INTO module VALUES('$code3', '$modules3', '$coursecode', 'ACTIVE', '20')");
 
+            $folder_name = "./files/$code3";
+            if (!is_dir($folder_name)) {
+                mkdir($folder_name);
+            }
 
-            if(empty($_POST['code4']) && empty($_POST['mod4']) && $_POST['code4'] != null && $_POST['mod4'] != null){
-                $insmods = $pdo->query("INSERT INTO module VALUES('".$_POST['code4']."', '".$_POST['mod4']."', '$coursecode', 'ACTIVE', '20')");
+            if(!empty($_POST['code4']) && !empty($_POST['mod4']) && $_POST['code4'] != null && $_POST['mod4'] != null){
+                $insmods = $pdo->query("INSERT INTO module VALUES('".strtoupper($_POST['code4'])."', '".strtoupper($_POST['mod4'])."', '$coursecode', 'ACTIVE', '20')");
+                $folder_name = "./files/'".$_POST['code4']."'";
+            if (!is_dir($folder_name)) {
+                mkdir($folder_name);
+            }
             }
         
             if(empty($_POST['code5']) && empty($_POST['mod5']) && $_POST['code5'] != null && $_POST['mod5'] != null){
-                $insmods = $pdo->query("INSERT INTO module VALUES('".$_POST['code5']."', '".$_POST['mod5']."', '$coursecode', 'ACTIVE', '20')");
+                $insmods = $pdo->query("INSERT INTO module VALUES('".strtoupper($_POST['code5'])."', '".strtoupper($_POST['mod5'])."', '$coursecode', 'ACTIVE', '20')");
+                $folder_name = "./files/'".$_POST['code5']."'";
+            if (!is_dir($folder_name)) {
+                mkdir($folder_name);
+            }
             }
             
             if(empty($_POST['code6']) && empty($_POST['mod6']) && $_POST['code6'] != null && $_POST['mod6'] != null){
-                $insmods = $pdo->query("INSERT INTO module VALUES('".$_POST['code6']."', '".$_POST['mod6']."', '$coursecode', 'ACTIVE', '20')");
+                $insmods = $pdo->query("INSERT INTO module VALUES('".strtoupper($_POST['code6'])."', '".strtoupper($_POST['mod6'])."', '$coursecode', 'ACTIVE', '20')");
+                $folder_name = "./files/'".$_POST['code6']."'";
+            if (!is_dir($folder_name)) {
+                mkdir($folder_name);
+            }
             }
 
             header("Location: admindash.php");
@@ -75,6 +99,7 @@ if(isset($_POST['submit'])){
                     <h1 style="font-family: helvetica; line-height: 0;">COURSE</h1>
                 </div>
                 <div class="logout-btn">
+                <a href="admindash.php">🔙 Back to Admin Dashboard</a>
                     <a href="logout.php">Log out</a>
                 </div>
 

@@ -143,7 +143,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] === "admin"){
 
 <?php
 }
-else if($type = "student"){
+else if($type == "student"){
 
     $staffq = $pdo->query("SELECT * FROM student WHERE student_id = '$id'");
     $staffd = $staffq->fetch();
@@ -303,18 +303,83 @@ else{
 
 
 }
-else if($type = "course"){
+else if($type == "course"){
+    // $type = $_GET['type'];
+    //     $id = $_GET['id'];
+
+    if(isset($_POST['submit'])){
+    $coursename = strtoupper($_POST['cname']);
+    $coursecode = strtoupper($_POST['ccode']);
+    $inscourse = $pdo->query("UPDATE course SET name = '$coursename', id = '$coursecode' WHERE id = '$id'");
+    if($inscourse){
+        header("Location: admindash.php");
+        exit();
+    }
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Course Add</title>
+    </head>
+
+    <body>
+
+        <div class="left-window">
+            <div class="blue-block"></div>
+            <div class="blue-block"></div>
+            <div class="blue-block"></div>
+            <div class="blue-block"></div>
+            <div class="blue-block"></div>
+        </div>
+        <div class="main-content">
+            <div class="stu_nav">
+            <div style=" display: inline-block;">
+                    <h1 style="font-family: helvetica; line-height: 0;">COURSE</h1>
+                </div>
+                <div class="logout-btn">
+                    <a href="logout.php">Log out</a>
+                </div>
+
+            </div>
+            <div class="dash-centre">
+        
+                <form action="" method="POST" style="align-items: start; font-family: helvetica;">
+                    <label for="cname">Enter Course Name</label>
+                    <div>
+                        <?php
+                            $id = $_GET['id'];
+                            $uptcrs = $pdo->query("SELECT * FROM course WHERE id = '$id'");
+                            $datss = $uptcrs->fetch();
+                        ?>
+                    <input type="text" name="cname" style="background-color: #e8e8e8;" required placeholder="Course Name" value="<?php echo $datss['name']; ?>">
+                    <input type="text" name="ccode" style="background-color: #e8e8e8;" placeholder="Course Code" required value="<?php echo $datss['id']; ?>">
+                    </div><br><br>
+                    
+                    
+                    <button type="submit" name="submit" id="student-add" style="margin: auto">Update Course</button>
+                </form>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>
+<?php
 
 
 }
 
-
-
-
-}}
-else{
-    header("Location: admin-login.php");
-    exit();
 }
-
+    }else{
+        header("Location: admin-login.php");
+        exit();
+    }
 ?>
