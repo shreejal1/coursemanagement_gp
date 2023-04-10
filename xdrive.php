@@ -68,8 +68,8 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                     <h3>Drive</h3>
                     <div style="width: 500px;">
                     <form action="" method="POST" enctype="multipart/form-data" style="width: 100%; align-items: center; flex-direction: row;">
-                        <input type="file" name="file">
-                        <input type="submit" value="Upload File">
+                        <input type="file" name="file" required>
+                        <button type="submit" value="Upload File">Upload File</button>
                     </form>
                     </div>
                 </div>
