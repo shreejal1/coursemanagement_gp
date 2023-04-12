@@ -32,7 +32,7 @@ if($usertype === "admin"){
 }
 else if($usertype === "staff"){
 
-    $comp = $pdo->prepare("SELECT * FROM staff WHERE email = :email");
+    $comp = $pdo->prepare("SELECT * FROM staff WHERE email = :email AND status = 'ACTIVE'");
     $const = ["email" => $email];
     $comp->execute($const);
     $rows = $comp->rowCount();
@@ -58,7 +58,7 @@ else if($usertype === "staff"){
 }
 else if($usertype === "student"){
 
-    $comp = $pdo->prepare("SELECT * FROM student WHERE email = :email");
+    $comp = $pdo->prepare("SELECT * FROM student WHERE email = :email AND status = 'ACTIVE'");
     $const = ["email" => $email];
     $comp->execute($const);
     $rows = $comp->rowCount();

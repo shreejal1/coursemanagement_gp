@@ -39,6 +39,14 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
 
             </div>
             <div class="dash-centre">
+            <table>
+                <thead>
+                <th width="10%" class="snoid"></th>
+                    <th width="35%"></th>
+                    <th width="25%"></th>
+                </thead>
+
+                <tbody>
                
 
                 <?php
@@ -48,15 +56,22 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                     $files = scandir($dir);
                     foreach($files as $file) {
                         if($file != '.' && $file != '..') {
-                            echo '<div class="item">';
-                            echo "<a href='$dir/$file' style='text-decoration: none;'>$file</a><br>";
-                            echo '</div>';
+                            echo '
+                            <tr>
+                            <td class="snoid">#</td>';
+                            
+                            echo "<td>$file</td><br>
+                            <td><a href='$dir/$file' style='text-decoration: none;'>Download</a></td>
+                            </tr>";
                         }
                     }
                 } else {
-                    echo "Error: Directory not found.";
+                    echo "<tr><td class='snoid'>#</td><td>Error: Directory not found.</td><td></td></tr>";
                 }
                 ?>
+                </tbody>
+            </table>
+
 
                
 
