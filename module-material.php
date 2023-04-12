@@ -32,6 +32,9 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
             <div style=" display: inline-block;">
                    <h1 style="line-height: 0; font-family: helvetica;">Module Materials</h1>
                 </div>
+                <div class="logout-btn">
+                <a href="studentdash.php">🔙 Back to Student Dashboard</a>
+                </div>
                 
 
             </div>

@@ -162,7 +162,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                         else{
                             echo '<td>(not assigned)</td>';
                         }
-                        echo '<td><div class="actions"><a href="edit.php?type=staff&id='.$values['staff_id'].'">Edit</a>       <a href="delete.php?type=student&id='.$values['staff_id'].'">Delete</a></div></td>
+                        echo '<td><div class="actions"><a href="edit.php?type=staff&id='.$values['staff_id'].'">Edit</a>       <a href="delete.php?type=staff&id='.$values['staff_id'].'">Delete</a></div></td>
                     </tr>';
                 }
                     ?>

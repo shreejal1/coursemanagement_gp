@@ -66,13 +66,14 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                 <div id="drive-logo">
                     <img class="drive-image" src="./images/drive.png" alt="Drive Logo">
                     <h3>Drive</h3>
+                    </div>
                     <div style="width: 500px;">
-                    <form action="" method="POST" enctype="multipart/form-data" style="width: 100%; align-items: center; flex-direction: row;">
+                    <form action="" method="POST" enctype="multipart/form-data" style="width: 100%; align-items: center; display: block;">
                         <input type="file" name="file" required>
                         <button type="submit" value="Upload File">Upload File</button>
                     </form>
                     </div>
-                </div>
+                
                 <div class="logout-btn">
                 <a href="studentdash.php">🔙 Back to Student Dashboard</a>
                     <a href="logout.php">Log out</a>
