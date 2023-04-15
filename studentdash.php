@@ -42,7 +42,17 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                     Student
                 </div>
                 <div class="logout-btn">
-                    <a href="logout.php">Log out</a>
+                <a onclick="return clickfunction()" href="logout.php">Log out</a>
+                    <script>
+function clickfunction() {
+  var result = confirm("Are you sure you want to log out?");
+  if (result == true) {
+    return true;
+  } else {
+    return false;
+  }
+}
+</script>
                 </div>
 
             </div>

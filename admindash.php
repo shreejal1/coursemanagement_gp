@@ -50,7 +50,17 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                     <a href="student-reg.php">Add Student</a>
                     <a href="staff-reg.php">Add Staff</a>
                     <a href="courseadd.php">Add Course</a>
-                    <a href="logout.php">Log out</a>
+                    <a onclick="return clicklogout()" href="logout.php">Log out</a>
+                    <script>
+function clicklogout() {
+  var result = confirm("Are you sure you want to log out?");
+  if (result == true) {
+    return true;
+  } else {
+    return false;
+  }
+}
+</script>
                 </div>
 
             </div>
@@ -98,12 +108,22 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                     <tr>
                         <td class="snoid">'.$values['id'].'</td>
                         <td>'.$values['name'].'</td>
-                        <td><div class="actions"><a href="edit.php?type=course&id='.$values['id'].'">Edit</a>       <a href="delete.php?type=course&id='.$values['id'].'">Delete</a></div></td>
+                        <td><div class="actions"><a href="edit.php?type=course&id='.$values['id'].'">Edit</a>       <a onClick="return clickfunction()" href="delete.php?type=course&id='.$values['id'].'">Delete</a></div></td>
                     </tr>';
                 }
                     ?>
                 </tbody>
             </table>
+            <script>
+function clickfunction() {
+  var result = confirm("Are you sure you want to delete?");
+  if (result == true) {
+    return true;
+  } else {
+    return false;
+  }
+}
+</script>
 
 
             <div style=" display: inline-block;
@@ -162,7 +182,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                         else{
                             echo '<td>(not assigned)</td>';
                         }
-                        echo '<td><div class="actions"><a href="edit.php?type=staff&id='.$values['staff_id'].'">Edit</a>       <a href="delete.php?type=staff&id='.$values['staff_id'].'">Delete</a></div></td>
+                        echo '<td><div class="actions"><a href="edit.php?type=staff&id='.$values['staff_id'].'">Edit</a>       <a onClick="return clickfunction()" href="delete.php?type=staff&id='.$values['staff_id'].'">Delete</a></div></td>
                     </tr>';
                 }
                     ?>
@@ -223,7 +243,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                         else{
                             echo '<td>(not assigned)</td>';
                         }
-                        echo '<td><div class="actions"><a href="edit.php?type=student&id='.$values['student_id'].'">Edit</a>       <a href="delete.php?type=student&id='.$values['student_id'].'">Delete</a></div></td>
+                        echo '<td><div class="actions"><a href="edit.php?type=student&id='.$values['student_id'].'">Edit</a>       <a onClick="return clickfunction()" href="delete.php?type=student&id='.$values['student_id'].'">Delete</a></div></td>
                     </tr>';
                 }
                     ?>

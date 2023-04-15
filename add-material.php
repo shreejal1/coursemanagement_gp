@@ -133,7 +133,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
                         <td class="snoid">#</td>
                         <td>'.$file.'</td>';
                         // <td><div class="actions"><a href="deletematerial.php?path='.$dir.$file.'">Delete</a></div></td>
-                        echo '<td><div class="actions"><form method="POST" action="deletematerial.php?pathing='.$dirr.$file.'"><button type="submit" name="delbtn"/>Delete</button></form></div></td>
+                        echo '<td><div class="actions"><form method="POST" action="deletematerial.php?pathing='.$dirr.$file.'"><button type="submit" onClick="return myClick()" name="delbtn"/>Delete</button></form></div></td>
                     
                     </tr>';
                             }
@@ -145,6 +145,16 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
                     
                     
                     ?>
+                        <script>
+function myClick() {
+  var result = confirm("Are you sure you want to delete?");
+  if (result == true) {
+    return true;
+  } else {
+    return false;
+  }
+}
+</script>
                 </tbody>
             </table>
 

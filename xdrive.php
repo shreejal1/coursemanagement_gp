@@ -17,9 +17,9 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
         $extensions = array("pdf", "doc", "docx", "txt");
     
         if(in_array($file_ext, $extensions) === false){
-            echo "Error: File extension not allowed, please choose a PDF, DOC, DOCX, or TXT file.";
+            echo "<script>alert('Error: File extension not allowed, please choose a PDF, DOC, DOCX, or TXT file.');</script>";
         } elseif($file_size > 1000000) {
-            echo "Error: File size must be less than 1MB.";
+            echo "<script>alert('Error: File size must be less than 1MB.');</script>";
         } else {
             $s_id = $_SESSION['id'];
             $upload_dir = "./xdrivefiles/$s_id/";
@@ -32,7 +32,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                 header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             } else {
-                echo "Error: Failed to upload file.";
+                echo "<script>alert('Error: Failed to upload file.');</script>";
             }
         }
     }
@@ -83,6 +83,14 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
             <div class="dash-centre">
                 
 
+            <table>
+                <thead>
+                <th width="10%" class="snoid"></th>
+                    <th width="35%"></th>
+                    <th width="25%"></th>
+                </thead>
+
+                <tbody>
 
 
                                 <?php
@@ -92,15 +100,20 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                     $files = scandir($dir);
                     foreach($files as $file) {
                         if($file != '.' && $file != '..') {
-                            echo '<div class="item">';
-                            echo "<a href='$dir/$file' style='text-decoration: none;'>$file</a><br>";
-                            echo '</div>';
-                        }
-                    }
+                            echo '
+                            <tr>
+                            <td class="snoid">#</td>';
+                            
+                            echo "<td>$file</td><br>
+                            <td><a href='$dir/$file' style='text-decoration: none;'>Download</a></td>
+                            </tr>";
+                    }}
                 } else {
-                    echo "Error: Directory not found.";
+                    echo "<tr><td class='snoid'>#</td><td>Error: Directory not found.</td><td></td></tr>";
                 }
                 ?>
+                </tbody>
+            </table>
 
                 
             </div>
