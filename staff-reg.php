@@ -1,7 +1,10 @@
 <?php
 require 'database.php';
+//checking the status of user logged in and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
+    //checking the press of submit button
     if(isset($_POST['submit'])){
+        //changing the fields to uppercase
         $s_id = strtoupper($_POST['stID']);
         
         // var_dump($_POST['modules']);
@@ -24,6 +27,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
         $addr = strtoupper($_POST['address']);
         $hd = $_POST['en-date'];
 
+        //inserting the detauills in the student table in the database
         $ins = $pdo->prepare('INSERT INTO `staff`(`staff_id`, `first_name`, `middle_name`, `last_name`, `gender`, `course_id`, `email`, `password`, `contact`, `date_of_birth`, `address`, `enroll_date`, `status`) VALUES (:sid,:fname,:mname,:lname,:gender,:course,:email,:password,:phone,:dob,:addr,:hd,:status)');
         $cons = ['sid' => $s_id,
                 'fname' => $fname,
@@ -51,6 +55,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
             if(isset($_POST['modules'])){
                 $mods = $_POST['modules'];
                 foreach($mods as $mod){
+                    //inserting the details in the table for staffs bindings with module
                    $insmods = $pdo->prepare("INSERT INTO `staff_module`(`staff_id`, `module_id`) VALUES (:s_id, :m_id)");
                    $cons = ['s_id' => $s_id, 'm_id' => $mod];
                    $insmods->execute($cons);
@@ -90,6 +95,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                 <h1 style="top: 5%; position: fixed; font-family: helvetica;">STAFF REGISTRATION FORM</h1>
             </div>
             <div class="dash-centre">
+                <!-- form for entering the details of staff -->
                 <form action="" method="POST" style="font-family: helvetica; align-items: start; margin-left: 7%; margin-right: 7%">
                     <label for="name">Full Name</label>
                     <div>

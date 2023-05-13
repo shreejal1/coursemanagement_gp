@@ -36,6 +36,7 @@
 					</div>
 				</div>
 
+				<!-- defining script file for validating the credentials for client side -->
 				<script>
 					const loginForm = document.getElementById("login-form");
 					const emailInput = document.getElementById("email");
@@ -49,14 +50,14 @@
 						validationErrors.innerHTML = "";
 						let errors = [];
 
-						// Validate email
+						// Validating email
 						if (!emailInput.value) {
 							errors.push("Email field is required");
 						} else if (!isValidEmail(emailInput.value)) {
 							errors.push("Invalid email format");
 						}
 
-						// Validate password
+						// Validating password
 						if (!passwordInput.value) {
 							errors.push("Password field is required");
 						}
@@ -71,14 +72,15 @@
 							}
 							popupOverlay.style.display = "flex";
 						} else {
-							// Submit the form if there are no errors
+							// Submitting the form if there are no errors
 							document.getElementById("login-form").submit();
 						}
 					});
 
+					//this function validates the email from the client side
 					function isValidEmail(email) {
-						const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-						return emailRegex.test(email);
+						const email_frmate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+						return email_frmate.test(email);
 					}
 				</script>
 				

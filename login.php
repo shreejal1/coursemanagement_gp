@@ -1,10 +1,11 @@
 <?php
 require 'database.php';
+//checking the essentials fields for loggingg in
 if(isset($_GET['type']) && isset($_POST['email']) && isset($_POST['password'])){
 $email = $_POST['email'];
 $password = $_POST['password'];
 $usertype = $_GET['type'];
-
+//if the user is admin checking from the admin table
 if($usertype === "admin"){
     $comp = $pdo->prepare("SELECT * FROM admin WHERE email = :email");
     $const = ["email" => $email];
@@ -30,6 +31,7 @@ if($usertype === "admin"){
         exit(); 
     }
 }
+//if the user is admin checking from the staff table
 else if($usertype === "staff"){
 
     $comp = $pdo->prepare("SELECT * FROM staff WHERE email = :email AND status = 'ACTIVE'");
@@ -57,7 +59,7 @@ else if($usertype === "staff"){
 
 }
 else if($usertype === "student"){
-
+//if the user is admin checking from the student table
     $comp = $pdo->prepare("SELECT * FROM student WHERE email = :email AND status = 'ACTIVE'");
     $const = ["email" => $email];
     $comp->execute($const);

@@ -1,5 +1,6 @@
 <?php
 require('database.php');
+//checking the status of logged in user and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
     $stu = $pdo->query("SELECT * FROM student WHERE student_id = '".$_SESSION['id']."'");
     $datastu = $stu->fetch();
@@ -40,6 +41,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
             </div>
             <div class="dash-centre">
                 <?php
+                //selecting the details of course which the student is enrolled
                     $mods = $pdo->query("SELECT course_id FROM student WHERE student_id = '".$_SESSION['id']."'");
                     $datamod = $mods->fetch();
                     $modules = $pdo->query("SELECT * FROM module WHERE course_id = '".$datamod['course_id']."'");

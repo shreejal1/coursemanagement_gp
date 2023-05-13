@@ -1,6 +1,6 @@
 <?php
 require('database.php');
-
+//checking the user loggin ststus and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] === "admin"){
     if(isset($_GET['type'])){
 
@@ -25,7 +25,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] === "admin"){
             $dob = $_POST['dob'];
             $addr = strtoupper($_POST['address']);
             $hd = $_POST['en-date'];
-    
+            //updating the staff details in the database
             $ins = $pdo->prepare('UPDATE staff SET first_name = :fname, middle_name = :mname, last_name = :lname, gender = :gender, email = :email, contact = :phone, date_of_birth = :dob, address = :addr, enroll_date = :hd WHERE staff_id = :sid');
             $cons = ['sid' => $id,
                     'fname' => $fname,
@@ -79,6 +79,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] === "admin"){
                     <h1 style="top: 5%; position: fixed; font-family: helvetica;">STAFF EDIT FORM</h1>
                 </div>
                 <div class="dash-centre">
+                    <!-- form to edit the staff details -->
                     <form action="" method="POST" style="font-family: helvetica; align-items: start; margin-left: 7%; margin-right: 7%">
                         <label for="name">Full Name</label>
                         <div>
@@ -163,7 +164,7 @@ else if($type == "student"){
     $dob = $_POST['dob'];
     $addr = strtoupper($_POST['address']);
     $hd = $_POST['en-date'];
-
+    //updating student's detail in database
     $ins = $pdo->prepare('UPDATE student SET first_name = :fname, middle_name = :mname, last_name = :lname, gender = :gender, course_id = :course, email = :email, contact = :phone, date_of_birth = :dob, address = :addr, enroll_date = :hd WHERE student_id = :sid');
     $cons = ['sid' => $id,
             'fname' => $fname,
@@ -218,6 +219,7 @@ else{
             <h1 style="top: 5%; position: fixed; font-family: helvetica;">STUDENT EDIT FORM</h1>
         </div>
         <div class="dash-centre">
+            <!-- form to edit the details of students -->
             <form action="" method="POST" style="font-family: helvetica; align-items: start; margin-left: 7%; margin-right: 7%">
                 <label for="name">Full Name</label>
                 <div>
@@ -310,6 +312,7 @@ else if($type == "course"){
     if(isset($_POST['submit'])){
     $coursename = strtoupper($_POST['cname']);
     $coursecode = strtoupper($_POST['ccode']);
+    //updaiting the course's details in the database
     $inscourse = $pdo->query("UPDATE course SET name = '$coursename', id = '$coursecode' WHERE id = '$id'");
     if($inscourse){
         header("Location: admindash.php");
@@ -349,7 +352,7 @@ else if($type == "course"){
 
             </div>
             <div class="dash-centre">
-        
+        <!-- form to edit the details of course -->
                 <form action="" method="POST" style="align-items: start; font-family: helvetica;">
                     <label for="cname">Enter Course Name</label>
                     <div>

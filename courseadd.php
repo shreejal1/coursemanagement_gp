@@ -1,10 +1,11 @@
 <?php
 require('database.php');
+//checking the status of logged in user and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
 ?>
 <?php
 if(isset($_POST['submit'])){
-
+    //converting every form fields except password to uppercase
     $coursename = strtoupper($_POST['cname']);
     $coursecode = strtoupper($_POST['ccode']);
 
@@ -19,8 +20,10 @@ if(isset($_POST['submit'])){
     $modules3 = strtoupper($_POST['mod3']);
     $code3 = strtoupper($_POST['code3']);
 
+    //inserting the values to the course
     $inscourse = $pdo->query("INSERT INTO course VALUES('$coursecode', '$coursename', 'ACTIVE')");
     if($inscourse){
+        //inserting the modules with course id in the database
             $insmods1 = $pdo->query("INSERT INTO module VALUES('$code1', '$modules1', '$coursecode','ACTIVE', '20')");
             $folder_name = "./files/$code1";
             if (!is_dir($folder_name)) {
@@ -33,11 +36,13 @@ if(isset($_POST['submit'])){
             }
             $insmods3 = $pdo->query("INSERT INTO module VALUES('$code3', '$modules3', '$coursecode', 'ACTIVE', '20')");
 
+            //creating a folder with the id of the created course
             $folder_name = "./files/$code3";
             if (!is_dir($folder_name)) {
                 mkdir($folder_name);
             }
 
+            //adding the following modules if the boxes on the form are filled
             if(!empty($_POST['code4']) && !empty($_POST['mod4']) && $_POST['code4'] != null && $_POST['mod4'] != null){
                 $insmods = $pdo->query("INSERT INTO module VALUES('".strtoupper($_POST['code4'])."', '".strtoupper($_POST['mod4'])."', '$coursecode', 'ACTIVE', '20')");
                 $folder_name = "./files/'".$_POST['code4']."'";
@@ -105,6 +110,7 @@ if(isset($_POST['submit'])){
 
             </div>
             <div class="dash-centre">
+                <!-- form created for adding the course with its modules -->
         
                 <form action="" method="POST" style="align-items: start; font-family: helvetica;">
                     <label for="cname">Enter Course Name</label>

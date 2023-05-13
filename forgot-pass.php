@@ -21,14 +21,11 @@ require('database.php');
         </div>
         <div class="main-content">
             <div class="dash-centre" style="margin-top: 20px; height: 100%; margin-bottom: 45px">
-            <!-- <div class="stu_nav" style="justify-content: center">
-                <h1 style="top: 5%; position: fixed; font-family: helvetica;">Forgot Password?</h1>
-                <h6 style="font-family: helvetica;">Enter the information to reset your password</h6>
-            </div> -->
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <h1 style="font-family: helvetica;">Forgot Password?</h1>
             <h6 style="font-family: helvetica; margin-top: -10px;">Enter the information to reset your password</h6>
             </div>
+            <!-- form to be filled to reset a password for users either staff, amdmim or student -->
                 <form action="" method="POST" style="font-family: helvetica; align-items: start; margin-left: 7%; margin-right: 7%">
                 <label for="email">Email</label>
                 <input type="text" name="email" placeholder="test@example.com" style="width: 100%;" required/>
@@ -56,6 +53,7 @@ require('database.php');
 						<ul id="validation-errors">
 
                         <?php
+//checking the click of submit button
 if(isset($_POST['submit'])){
     $email = strtoupper($_POST['email']);
     $id = strtoupper($_POST['id']);
@@ -66,6 +64,7 @@ if(isset($_POST['submit'])){
     $phone = $_POST['phone'];
 
     if($pass === $npass){
+        //updating password for admin
         if($role == "admin"){
             $sel = $pdo->query("SELECT * FROM admin WHERE id = '$id'");
             $rc = $sel->rowCount();
@@ -87,6 +86,7 @@ if(isset($_POST['submit'])){
 
         }
         else if($role == "staff"){
+            //updating password for staff
             $sel = $pdo->query("SELECT * FROM staff WHERE staff_id = '$id'");
             $rc = $sel->rowCount();
             if($rc > 0){
@@ -107,6 +107,7 @@ if(isset($_POST['submit'])){
 
         }
         else if($role == "student"){
+            //updaitng password for student
             $sel = $pdo->query("SELECT * FROM student WHERE student_id = '$id'");
             $rc = $sel->rowCount();
             if($rc > 0){

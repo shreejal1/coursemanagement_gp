@@ -1,7 +1,10 @@
 <?php
 require 'database.php';
+//checking the user login status and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
+    //checking the click of submit button
     if(isset($_POST['submit'])){
+        //changing all the fields to uppercase before sending to database
         $s_id = strtoupper($_POST['stID']);
         $fname = strtoupper($_POST['fname']);
         if(isset($_POST['mname'])){
@@ -14,12 +17,14 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
         $gender = strtoupper($_POST['gender']);
         $course = strtoupper($_POST['course']);
         $email = strtoupper($_POST['email']);
+        //hashing the password
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $contact = $_POST['phone'];
         $dob = $_POST['dob'];
         $addr = strtoupper($_POST['address']);
         $hd = $_POST['en-date'];
 
+        //inserting the details to the database
         $ins = $pdo->prepare('INSERT INTO `student`(`student_id`, `first_name`, `middle_name`, `last_name`, `gender`, `course_id`, `email`, `password`, `contact`, `date_of_birth`, `address`, `enroll_date`, `status`) VALUES (:sid,:fname,:mname,:lname,:gender,:course,:email,:password,:phone,:dob,:addr,:hd,:status)');
         $cons = ['sid' => $s_id,
                 'fname' => $fname,
@@ -42,6 +47,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
             echo "Failed, try again";
         }
         else{
+            //making a folder named from the student's id for x-drive purpose
             $folder_name = "./xdrivefiles/$s_id";
             if (!is_dir($folder_name)) {
                 mkdir($folder_name);
@@ -83,6 +89,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                 <h1 style="top: 5%; position: fixed; font-family: helvetica;">STUDENT REGISTRATION FORM</h1>
             </div>
             <div class="dash-centre">
+                <!-- form to be filled for adding a student -->
                 <form action="" method="POST" style="font-family: helvetica; align-items: start; margin-left: 7%; margin-right: 7%">
                     <label for="name">Full Name</label>
                     <div>

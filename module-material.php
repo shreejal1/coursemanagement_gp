@@ -1,5 +1,6 @@
 <?php
 require('database.php');
+//checking the status of logged in user and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
     $stu = $pdo->query("SELECT * FROM student WHERE student_id = '".$_SESSION['id']."'");
     $datastu = $stu->fetch();
@@ -50,6 +51,9 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                
 
                 <?php
+                //getting the module id
+                //scanning the folder with that module id
+                //extracting the folder
                 $mid = $_GET['id'];
                 $dir = "./files/$mid";
                 if(is_dir($dir)) {

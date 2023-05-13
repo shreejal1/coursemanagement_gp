@@ -1,5 +1,6 @@
 <?php
 require('database.php');
+//checking the status of logged in user and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
     $stu = $pdo->query("SELECT * FROM student WHERE student_id = '".$_SESSION['id']."'");
     $datastu = $stu->fetch();
@@ -45,7 +46,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                 <a onclick="return clickfunction()" href="logout.php">Log out</a>
                     <script>
 function clickfunction() {
-  var result = confirm("Are you sure you want to log out?");
+  var result = confirm("Are you sure to log out?");
   if (result == true) {
     return true;
   } else {
@@ -56,6 +57,7 @@ function clickfunction() {
                 </div>
 
             </div>
+            <!-- links for the student to navigate to different pages -->
             <div class="dash-centre">
                 <div class="btns" style="flex-direction: column; justify-content: left; align-items: start;">
                 <br><a href="xdrive.php" style="background-color: #79e979;">X-Drive</a>

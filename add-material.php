@@ -1,5 +1,6 @@
 <?php
 require('database.php');
+//using the isset function to test the session and its user type
 if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
     $stu = $pdo->query("SELECT * FROM staff WHERE staff_id = '".$_SESSION['id']."'");
     $datastu = $stu->fetch();
@@ -17,15 +18,18 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
 ?>
 <?php
     
+    //making sure that the file is selected from the form
     if(isset($_FILES['file'])) {
+        //defining the file nature that gets uploaded
         $file_name = $_FILES['file']['name'];
         $file_size = $_FILES['file']['size'];
         $file_tmp = $_FILES['file']['tmp_name'];
         $file_type = $_FILES['file']['type'];
         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
     
+        //setting the allowed extensions of the file
         $extensions = array("pdf", "doc", "docx", "txt");
-    
+        //only allowing the file with the allowed extensions
         if(in_array($file_ext, $extensions) === false){
             echo "Error: File extension not allowed, please choose a PDF, DOC, DOCX, or TXT file.";
         } elseif($file_size > 1000000) {
@@ -36,6 +40,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
                 mkdir($upload_dir);
             }
             $upload_path = "./files/$mid/". basename($file_name);
+            //uploading the files after validating in the path mentioned
             if(move_uploaded_file($file_tmp, $upload_path)) {
                 echo "File uploaded successfully.";
                 header("Location: " . $_SERVER['HTTP_REFERER']);
@@ -47,6 +52,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
     }
     ?>
 
+<!-- html part of the page -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,6 +130,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
                     $s_id = $_SESSION['id'];
                     $dir = "./files/$mid";
                     $dirr = "./files/$mid/";
+                    //extracting the files present in the specified folder
                     if(is_dir($dir)) {
                         $files = scandir($dir);
                         foreach($files as $file) {
@@ -132,7 +139,6 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
                     <tr>
                         <td class="snoid">#</td>
                         <td>'.$file.'</td>';
-                        // <td><div class="actions"><a href="deletematerial.php?path='.$dir.$file.'">Delete</a></div></td>
                         echo '<td><div class="actions"><form method="POST" action="deletematerial.php?pathing='.$dirr.$file.'"><button type="submit" onClick="return myClick()" name="delbtn"/>Delete</button></form></div></td>
                     
                     </tr>';
@@ -145,6 +151,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
                     
                     
                     ?>
+                    <!-- defining a script file that pops out the alert message and options to go ahead and revert back -->
                         <script>
 function myClick() {
   var result = confirm("Are you sure you want to delete?");

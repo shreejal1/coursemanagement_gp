@@ -38,6 +38,7 @@ require('database.php');
 						?>
 					</div>
 				</div>
+				<!-- defining a js script to validate the login details -->
 
 				<script>
 					const loginForm = document.getElementById("login-form");
@@ -52,19 +53,19 @@ require('database.php');
 						validationErrors.innerHTML = "";
 						let errors = [];
 
-						// Validate email
+						// Validateing email
 						if (!emailInput.value) {
 							errors.push("Email field is required");
 						} else if (!isValidEmail(emailInput.value)) {
 							errors.push("Invalid email format");
 						}
 
-						// Validate password
+						// Validateing password
 						if (!passwordInput.value) {
 							errors.push("Password field is required");
 						}
 
-						// If there are errors, show popup with error messages
+						// If there are errors, showing popup with error messages
 						if (errors.length > 0) {
 							for (let i = 0; i < errors.length; i++) {
 								let errorItem = document.createElement("li");
@@ -74,14 +75,14 @@ require('database.php');
 							}
 							popupOverlay.style.display = "flex";
 						} else {
-							// Submit the form if there are no errors
+							// Submiting the form if there are no errors
 							document.getElementById("login-form").submit();
 						}
 					});
 
 					function isValidEmail(email) {
-						const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-						return emailRegex.test(email);
+						const email_frmate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+						return email_frmate.test(email);
 					}
 				</script>
 			</div>

@@ -1,25 +1,25 @@
-// Wait for the DOM to load
+// Waiting for the DOM to load
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Get a reference to the select element for the course
+    // Geting a reference to the select element for the course
 const courseSelect = document.getElementById('course');
 
-// Get a reference to the div that will contain the checkboxes
+// Getting a reference to the div that will contain the checkboxes
 const moduleCheckboxes = document.getElementById('moduleCheckboxes');
 
-// Add an event listener to the course select element
+// Addgin an event listener to the course select element
 courseSelect.addEventListener('change', (event) => {
-  // Get the selected course ID
+  // Geting the selected course ID
   const courseId = event.target.value;
 
-  // Send a GET request to the PHP script that returns the modules for the selected course
+  // Sending a GET request to the PHP script that returns the modules for the selected course
   fetch(`get_module.php?id=${courseId}`)
     .then(response => response.json())
     .then(modules => {
-      // Clear any existing checkboxes
+      // Clearing any existing checkboxes
       moduleCheckboxes.innerHTML = '';
 
-      // Create a checkbox for each module
+      // Createing a checkbox for each module
       modules.forEach(module => {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';

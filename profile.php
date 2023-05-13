@@ -1,5 +1,6 @@
 <?php
 require('database.php');
+//checking the status of logged in user and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
     $stu = $pdo->query("SELECT * FROM student WHERE student_id = '".$_SESSION['id']."'");
     $datastu = $stu->fetch();
@@ -39,6 +40,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
 
             </div>
             <div class="dash-centre">
+                <!-- displaying the student's details  -->
                 <div class="btns" style="flex-direction: column; justify-content: left; align-items: start;">
                     <h2 style="font-family: helvetica;">Name: <?php echo $datastu['first_name']." ".$datastu['middle_name']." ".$datastu['last_name'];?></h2>
                     <h2 style="font-family: helvetica;">Date Of Birth: <?php echo $datastu['date_of_birth']; ?></h2>

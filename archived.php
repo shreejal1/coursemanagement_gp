@@ -1,15 +1,22 @@
 <?php
 require('database.php');
+//checking the status of logged in user and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
+    //taking the total course which are archived
     $crs = $pdo->query("SELECT COUNT(id) FROM course WHERE status = 'ARCHIVED'");
     $course = $crs->fetch();
+    //taking the total staff who are archived
     $stf = $pdo->query("SELECT COUNT(staff_id) FROM staff WHERE status = 'ARCHIVED'");
     $staff = $stf->fetch();
+    //taking the total student who are archived
     $std = $pdo->query("SELECT COUNT(student_id) FROM student WHERE status = 'ARCHIVED'");
     $student = $std->fetch();
 
+    //selecting every course which are archived
     $datacourse = $pdo->query("SELECT * FROM course WHERE status = 'ARCHIVED'");
+    //selecting every staff who are archived
     $datastaff = $pdo->query("SELECT * FROM staff WHERE status = 'ARCHIVED'");
+    //selecting every student who are archived
     $datastudent = $pdo->query("SELECT * FROM student WHERE status = 'ARCHIVED'");
     ?>
 <!DOCTYPE html>
@@ -90,6 +97,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
 
                 <tbody>
                     <?php
+                    //displaying every archived courses
                     foreach($datacourse as $values){
                     echo '
                     <tr>
@@ -143,6 +151,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
 
                 <tbody>
                     <?php
+                    //displaying every archived staffs
                     foreach($datastaff as $values){
                         
                     echo '
@@ -207,6 +216,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
 
                 <tbody>
                     <?php
+                    //displaying every archived students
                     foreach($datastudent as $values){
                     echo '
                     <tr>

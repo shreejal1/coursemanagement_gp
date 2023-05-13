@@ -1,15 +1,22 @@
 <?php
 require('database.php');
+//checking the status of logged in user and his role
 if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
+    //selecting total number of courses
     $crs = $pdo->query("SELECT COUNT(id) FROM course WHERE status = 'ACTIVE'");
     $course = $crs->fetch();
+    //selecting total number of staffs
     $stf = $pdo->query("SELECT COUNT(staff_id) FROM staff WHERE status = 'ACTIVE'");
     $staff = $stf->fetch();
+    //selecting total number of students
     $std = $pdo->query("SELECT COUNT(student_id) FROM student WHERE status = 'ACTIVE'");
     $student = $std->fetch();
 
+    //selecting all the active courses
     $datacourse = $pdo->query("SELECT * FROM course WHERE status = 'ACTIVE'");
+    //selecting all the active staffs
     $datastaff = $pdo->query("SELECT * FROM staff WHERE status = 'ACTIVE'");
+    //selecting all the active students
     $datastudent = $pdo->query("SELECT * FROM student WHERE status = 'ACTIVE'");
     ?>
 <!DOCTYPE html>
@@ -51,9 +58,10 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "admin"){
                     <a href="staff-reg.php">Add Staff</a>
                     <a href="courseadd.php">Add Course</a>
                     <a onclick="return clicklogout()" href="logout.php">Log out</a>
+                    <!-- defining a function to alert users about logout -->
                     <script>
 function clicklogout() {
-  var result = confirm("Are you sure you want to log out?");
+  var result = confirm("Are you sure to log out?");
   if (result == true) {
     return true;
   } else {
@@ -114,9 +122,10 @@ function clicklogout() {
                     ?>
                 </tbody>
             </table>
+            <!-- alerting user that if he is sure to delete -->
             <script>
 function clickfunction() {
-  var result = confirm("Are you sure you want to delete?");
+  var result = confirm("Are you sure to delete?");
   if (result == true) {
     return true;
   } else {
@@ -173,9 +182,11 @@ function clickfunction() {
                         <td class="snoid">'.$values['staff_id'].'</td>
                         <td>'.$values['first_name'].' '.$values['middle_name'].' '.$values['last_name'].'</td>
                         <td>'.$values['enroll_date'].'</td>';
+                        //selecting the course where the staff is enrolled
                         $c= $pdo->query("SELECT * FROM course WHERE id ='".$values['course_id']."' AND status='ACTIVE'");
                         $rc = $c->rowCount();
                         if($rc > 0){
+                            //extracting with foreach loop
                         foreach($c as $respectivecourse){
                        echo '<td>'.$respectivecourse['name'].'</td>';
                         }}
@@ -234,6 +245,7 @@ function clickfunction() {
                     <tr>
                         <td class="snoid">'.$values['student_id'].'</td>
                         <td>'.$values['first_name'].' '.$values['middle_name'].' '.$values['last_name'].'</td>';
+                        //selecting the course where student is enrolled
                         $c= $pdo->query("SELECT * FROM course WHERE id ='".$values['course_id']."' AND status='ACTIVE'");
                         $rc = $c->rowCount();
                         if($rc > 0){

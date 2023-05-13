@@ -1,5 +1,6 @@
 <?php
 require('database.php');
+//checking the status of the user logged in and his role 
 if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
     $stu = $pdo->query("SELECT * FROM staff WHERE staff_id = '".$_SESSION['id']."'");
     $datastu = $stu->fetch();
@@ -34,9 +35,10 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
                 </div>
                 <div class="logout-btn">
                 <a onclick="return clickfunction()" href="logout.php">Log out</a>
+                <!-- defining a js function to alert the user abot the logout -->
                     <script>
 function clickfunction() {
-  var result = confirm("Are you sure you want to log out?");
+  var result = confirm("Are you sure to log out?");
   if (result == true) {
     return true;
   } else {
