@@ -35,7 +35,7 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "student"){
                 </div>
                 <div class="logout-btn">
                 <a href="studentdash.php">🔙 Back to Student Dashboard</a>
-                    <a href="logout.php">Log out</a>
+                    <!-- <a href="logout.php">Log out</a> -->
                 </div>
 
             </div>

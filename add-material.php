@@ -31,9 +31,9 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
         $extensions = array("pdf", "doc", "docx", "txt");
         //only allowing the file with the allowed extensions
         if(in_array($file_ext, $extensions) === false){
-            echo "Error: File extension not allowed, please choose a PDF, DOC, DOCX, or TXT file.";
+            echo "<script>alert('File extension not allowed, please choose a PDF, DOC, DOCX, or TXT file.')</script>";
         } elseif($file_size > 1000000) {
-            echo "Error: File size must be less than 1MB.";
+            echo "<script>alert('File size must be less than 1MB.')</script>";
         } else {
             $upload_dir = "./files/$mid/";
             if(!is_dir($upload_dir)) {
@@ -42,11 +42,11 @@ if(isset($_SESSION['user']) && $_SESSION['user'] == "staff"){
             $upload_path = "./files/$mid/". basename($file_name);
             //uploading the files after validating in the path mentioned
             if(move_uploaded_file($file_tmp, $upload_path)) {
-                echo "File uploaded successfully.";
+                echo "<script>alert('File uploaded successfully.')</script>";
                 header("Location: " . $_SERVER['HTTP_REFERER']);
                 exit();
             } else {
-                echo "Error: Failed to upload file.";
+                echo "<script>alert('Failed to upload file.')</script>";
             }
         }
     }

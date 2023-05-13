@@ -82,7 +82,7 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == "student") {
 
                 <div class="logout-btn">
                     <a href="studentdash.php">🔙 Back to Student Dashboard</a>
-                    <a href="logout.php">Log out</a>
+                    <!-- <a href="logout.php">Log out</a> -->
                 </div>
 
             </div>
@@ -103,6 +103,7 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == "student") {
                         //checking and extracting the files from the folders
                         $s_id = $_SESSION['id'];
                         $dir = "./xdrivefiles/$s_id";
+                        $dirr = "./xdrivefiles/$s_id/";
                         if (is_dir($dir)) {
                             $files = scandir($dir);
                             foreach ($files as $file) {
@@ -111,15 +112,27 @@ if (isset($_SESSION['user']) && $_SESSION['user'] == "student") {
                             <tr>
                             <td class="snoid">#</td>';
 
-                                    echo "<td>$file</td><br>
-                            <td><a href='$dir/$file' style='text-decoration: none;'>Download</a></td>
-                            </tr>";
+                                    echo "<td><a href='$dir/$file' style='text-decoration: none;'>".$file."</a></td><br>";
+                                    echo '<td><div class="actions"><form method="POST" action="deletematerial.php?pathing='.$dirr.$file.'"><button type="submit" onClick="return myClick()" name="delbtn"/>Delete</button></form></div></td>
+                    
+                            </tr>';
                                 }
                             }
                         } else {
                             echo "<tr><td class='snoid'>#</td><td>Error: Directory not found.</td><td></td></tr>";
                         }
                         ?>
+                                           <!-- defining a script file that pops out the alert message and options to go ahead and revert back -->
+                                           <script>
+function myClick() {
+  var result = confirm("Are you sure you want to delete?");
+  if (result == true) {
+    return true;
+  } else {
+    return false;
+  }
+}
+</script>
                     </tbody>
                 </table>
 
